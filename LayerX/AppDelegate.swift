@@ -40,6 +40,22 @@ extension AppDelegate {
 		let image = viewController.imageView.image!
 		window.resizeTo(image.size, animated: true)
 	}
+    
+    @IBAction func retina2x(_ sender: AnyObject?) {
+        let image = viewController.imageView.image!
+        var size = image.size
+        size.width /= 2
+        size.height /= 2
+        window.resizeTo(size, animated: true)
+    }
+    
+    @IBAction func retina3x(_ sender: AnyObject?) {
+        let image = viewController.imageView.image!
+        var size = image.size
+        size.width /= 3
+        size.height /= 3
+        window.resizeTo(size, animated: true)
+    }
 
 	@IBAction func makeLarger(_ sender: AnyObject) {
 		var size = window.frame.size

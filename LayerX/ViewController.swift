@@ -57,7 +57,7 @@ class ViewController: NSViewController {
 		sizeTextField.layer?.opacity = 0
 	}
 
-	func windowDidResize(_ notification: Notification) {
+	@objc func windowDidResize(_ notification: Notification) {
 		let window = notification.object as! NSWindow
 		let size = window.frame.size
 		sizeTextField.stringValue = "\(Int(size.width))x\(Int(size.height))"

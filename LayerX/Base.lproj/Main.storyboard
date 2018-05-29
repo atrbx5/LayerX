@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -123,9 +124,19 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
                                     <items>
-                                        <menuItem title="Actual Size" keyEquivalent="0" id="snW-S8-Cw5">
+                                        <menuItem title="Actual Size @1x" keyEquivalent="1" id="snW-S8-Cw5">
                                             <connections>
                                                 <action selector="actualSize:" target="Voe-Tx-rLC" id="Rr0-Sv-VSe"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Retina @2x" keyEquivalent="2" id="epS-Ty-85r">
+                                            <connections>
+                                                <action selector="retina2x:" target="Voe-Tx-rLC" id="KSK-Er-EIf"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Retina @3x" keyEquivalent="3" id="T7A-y3-ndW">
+                                            <connections>
+                                                <action selector="retina3x:" target="Voe-Tx-rLC" id="rdw-aQ-p0z"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Scale Up" keyEquivalent="+" id="Ed8-Vk-OS6">
@@ -247,6 +258,9 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="515" y="487" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="QE4-RY-G9r"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -319,6 +333,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="lock" width="32" height="32"/>
+        <image name="lock" width="16" height="16"/>
     </resources>
 </document>
