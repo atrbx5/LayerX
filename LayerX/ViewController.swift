@@ -20,7 +20,7 @@ class ViewController: NSViewController {
 	}
 
 	lazy var trackingArea: NSTrackingArea = {
-		let options: NSTrackingAreaOptions = [.activeAlways, .mouseEnteredAndExited]
+		let options: NSTrackingArea.Options = [NSTrackingArea.Options.activeAlways, NSTrackingArea.Options.mouseEnteredAndExited]
 		return NSTrackingArea(rect: self.view.bounds, options: options, owner: self, userInfo: nil)
 	}()
 
@@ -46,12 +46,12 @@ class ViewController: NSViewController {
 		lockIconImageView.layer?.cornerRadius = 5
 		lockIconImageView.layer?.masksToBounds = true
 
-		NotificationCenter.default.addObserver(self, selector: #selector(NSWindowDelegate.windowDidResize(_:)), name: NSNotification.Name.NSWindowDidResize, object: appDelegate().window)
+		NotificationCenter.default.addObserver(self, selector: #selector(NSWindowDelegate.windowDidResize(_:)), name: NSWindow.didResizeNotification, object: appDelegate().window)
 
 		view.addTrackingArea(trackingArea)
 	}
 
-	func fadeOutSizeTextField() {
+	@objc func fadeOutSizeTextField() {
 		let transition = CATransition()
 		sizeTextField.layer?.add(transition, forKey: "fadeOut")
 		sizeTextField.layer?.opacity = 0

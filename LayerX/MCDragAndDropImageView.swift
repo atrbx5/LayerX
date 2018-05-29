@@ -19,7 +19,7 @@ class MCDragAndDropImageView: NSImageView {
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 
-		register(forDraggedTypes: NSImage.imageTypes())
+        registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL])
 
 		wantsLayer = true
 	}
@@ -59,7 +59,7 @@ extension MCDragAndDropImageView: NSDraggingSource {
 			let sourceDragMask = sender.draggingSourceOperationMask()
 			let pboard = sender.draggingPasteboard()
 
-			if pboard.availableType(from: [NSFilenamesPboardType]) == NSFilenamesPboardType {
+            if pboard.availableType(from: [NSPasteboard.PasteboardType.fileURL]) == NSPasteboard.PasteboardType.fileURL {
 				if sourceDragMask.rawValue & NSDragOperation.copy.rawValue != 0 {
 					return NSDragOperation.copy
 				}
