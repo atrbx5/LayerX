@@ -34,8 +34,10 @@ class MCWIndow: NSWindow {
 	}
 
 	func resizeTo(_ size: NSSize, animated: Bool) {
-		var frame = self.frame
-		frame.size = size
+
+        let frame = self.frame.insetBy(
+            dx: (self.frame.width - size.width) / 2,
+            dy: (self.frame.height - size.height) / 2)
 
 		if !animated {
 			setFrame(frame, display: true)
