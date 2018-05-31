@@ -10,6 +10,14 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
+    var scale: CGFloat = 1 {
+        didSet {
+            let image = viewController.imageView.image!
+            let size = image.size * scale
+            window.resizeTo(size, animated: true)
+        }
+    }
 
 	weak var window: MCWIndow!
 	weak var viewController: ViewController!
@@ -19,7 +27,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		if let window = NSApp.windows.first as? MCWIndow {
-			window.fitsWithSize(NSMakeSize(480, 320))
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                window.fitsWithSize(NSMakeSize(480, 320))
+            }
 			self.window = window
 		}
 	}
@@ -37,36 +47,23 @@ fileprivate enum ArrowTag: Int {
 extension AppDelegate {
 
 	@IBAction func actualSize(_ sender: AnyObject?) {
-		let image = viewController.imageView.image!
-		window.resizeTo(image.size, animated: true)
+		scale = 1
 	}
     
     @IBAction func retina2x(_ sender: AnyObject?) {
-        let image = viewController.imageView.image!
-        var size = image.size
-        size.width /= 2
-        size.height /= 2
-        window.resizeTo(size, animated: true)
+        scale = 0.5
     }
     
     @IBAction func retina3x(_ sender: AnyObject?) {
-        let image = viewController.imageView.image!
-        var size = image.size
-        size.width /= 3
-        size.height /= 3
-        window.resizeTo(size, animated: true)
+        scale = 1 / 3
     }
 
 	@IBAction func makeLarger(_ sender: AnyObject) {
-		var size = window.frame.size
-		size = size * 1.1
-		window.resizeTo(size, animated: true)
+		scale *= 1.1
 	}
 
 	@IBAction func makeSmaller(_ sender: AnyObject) {
-		var size = window.frame.size
-		size = size * 0.9
-		window.resizeTo(size, animated: true)
+		scale *= 0.9
 	}
 
 	@IBAction func makeLargerOnePixel(_ sender: AnyObject) {
@@ -84,14 +81,12 @@ extension AppDelegate {
 	}
 
 	@IBAction func increaseTransparency(_ sender: AnyObject) {
-		var alpha = viewController.imageView.alphaValue
-		alpha -= 0.1
+		let alpha = viewController.imageView.alphaValue - 0.1
 		viewController.imageView.alphaValue = max(alpha, 0.05)
 	}
 
 	@IBAction func reduceTransparency(_ sender: AnyObject) {
-		var alpha = viewController.imageView.alphaValue
-		alpha += 0.1
+		let alpha = viewController.imageView.alphaValue + 0.1
 		viewController.imageView.alphaValue = min(alpha, 1.0)
 	}
 	

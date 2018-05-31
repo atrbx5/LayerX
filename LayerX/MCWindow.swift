@@ -26,11 +26,38 @@ class MCWIndow: NSWindow {
     }
 
 	func fitsWithSize(_ size: NSSize) {
+        
+        guard let screenFrame = screen?.frame else {
+            return
+        }
+ 
 		var frame = self.frame
-		if frame.size.width < size.width || frame.size.height < size.height {
-			frame.size = size
-			setFrame(frame, display: true)
-		}
+        
+        var intersection = screenFrame.intersection(frame)
+        
+        if intersection.height != frame.height || intersection.width != frame.width {
+            frame.size = size
+            intersection = screenFrame.intersection(frame)
+    
+        }
+
+        if intersection.height != frame.height {
+            if frame.minY < screenFrame.minY {
+                frame.origin.y += frame.height - intersection.height
+            } else if frame.maxY > screenFrame.maxY {
+                frame.origin.y -= frame.height - intersection.height
+            }
+        }
+        
+        if intersection.width != frame.width {
+            if frame.minX < screenFrame.minX {
+                frame.origin.x += frame.width - intersection.width
+            }  else if frame.maxX > screenFrame.maxX {
+                frame.origin.x -= frame.width - intersection.width
+            }
+        }
+
+        setFrame(frame, display: true)
 	}
 
 	func resizeTo(_ size: NSSize, animated: Bool) {

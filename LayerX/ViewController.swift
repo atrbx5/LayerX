@@ -96,7 +96,7 @@ extension ViewController: MCDragAndDropImageViewDelegate {
 		sizeTextField.isHidden = false
 		placeholderTextField.isHidden = true
 
-		appDelegate().actualSize(nil)
+		appDelegate().scale = appDelegate().scale
 	}
 }
 
