@@ -27,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		if let window = NSApp.windows.first as? MCWIndow {
+            window.level = .mainMenu + 1;
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 window.fitsWithSize(NSMakeSize(480, 320))
             }
