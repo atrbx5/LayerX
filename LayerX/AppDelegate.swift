@@ -12,7 +12,7 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     var scale: CGFloat = 1 {
-        didSet {
+        didSet {            
             let image = viewController.imageView.image!
             let size = image.size * scale
             window.resizeTo(size, animated: true)
@@ -97,12 +97,11 @@ extension AppDelegate {
 			menuItem.title  = "Unlock"
 			window.isMovable = false
 			window.ignoresMouseEvents = true
-			window.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.maximumWindow)))
 		} else {
 			menuItem.title  = "Lock"
 			window.isMovable = true
 			window.ignoresMouseEvents = false
-			window.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.normalWindow)))
+
 		}
 
 		viewController.lockIconImageView.isHidden = window.isMovable || isLockIconHiddenWhileLocked
