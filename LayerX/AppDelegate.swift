@@ -12,7 +12,10 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     var scale: CGFloat = 1 {
-        didSet {            
+        didSet {
+            if scale < 0.1 {
+                scale = 0.1
+            }
             let image = viewController.imageView.image!
             let size = image.size * scale
             window.resizeTo(size, animated: true)
@@ -60,11 +63,11 @@ extension AppDelegate {
     }
 
 	@IBAction func makeLarger(_ sender: AnyObject) {
-		scale *= 1.1
+		scale += 0.1
 	}
 
 	@IBAction func makeSmaller(_ sender: AnyObject) {
-		scale *= 0.9
+		scale -= 0.1
 	}
 
 	@IBAction func makeLargerOnePixel(_ sender: AnyObject) {

@@ -37,7 +37,6 @@ class ViewController: NSViewController {
 		super.viewDidLoad()
 
 		imageView.delegate = self
-
 		sizeTextField.layer?.cornerRadius = 3
 		sizeTextField.layer?.masksToBounds = true
 
@@ -60,7 +59,12 @@ class ViewController: NSViewController {
 	@objc func windowDidResize(_ notification: Notification) {
 		let window = notification.object as! NSWindow
 		let size = window.frame.size
-		sizeTextField.stringValue = "\(Int(size.width))x\(Int(size.height))"
+        guard let imageSize = imageView.image?.size else {
+            return
+        }
+        let scale = String(format: "%0.1f", size.width / imageSize.width * 100 )
+        
+		sizeTextField.stringValue = "\(Int(size.width))x\(Int(size.height)) \(scale)%"
 		sizeTextField.layer?.opacity = 1
 
 		NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(ViewController.fadeOutSizeTextField), object: nil)

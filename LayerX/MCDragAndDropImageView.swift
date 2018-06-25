@@ -51,13 +51,13 @@ extension MCDragAndDropImageView: NSDraggingSource {
 
 	override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
 
-		if (NSImage.canInit(with: sender.draggingPasteboard())) {
+        if (NSImage.canInit(with: sender.draggingPasteboard)) {
 			isHighlighted = true
 
 			setNeedsDisplay()
 
-			let sourceDragMask = sender.draggingSourceOperationMask()
-			let pboard = sender.draggingPasteboard()
+            let sourceDragMask = sender.draggingSourceOperationMask
+            let pboard = sender.draggingPasteboard
 
             if pboard.availableType(from: [NSPasteboard.PasteboardType.fileURL]) == NSPasteboard.PasteboardType.fileURL {
 				if sourceDragMask.rawValue & NSDragOperation.copy.rawValue != 0 {
@@ -78,12 +78,12 @@ extension MCDragAndDropImageView: NSDraggingSource {
 		isHighlighted = false
 		setNeedsDisplay()
 
-		return NSImage.canInit(with: sender.draggingPasteboard())
+        return NSImage.canInit(with: sender.draggingPasteboard)
 	}
 
 	override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-		if (NSImage.canInit(with: sender.draggingPasteboard())) {
-			image = NSImage(pasteboard: sender.draggingPasteboard())
+        if (NSImage.canInit(with: sender.draggingPasteboard)) {
+            image = NSImage(pasteboard: sender.draggingPasteboard)
 			delegate?.dragAndDropImageViewDidDrop(self)
 			setNeedsDisplay()
 		}
